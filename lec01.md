@@ -53,7 +53,7 @@ The OS can be divided into Three Easy Pieces.
 3. Persistance
 
 ## Virtualization
-Make each application believe it has each resource to itself.
+Make each application believe it has each resource to itself, and that it is interacting with the actual physical representation of said resource.
 
 ## Virtualizing the CPU
 * There are a very large number of virtual CPUs, such that a single CPU can turn into a seemingly infinite number of CPUs
