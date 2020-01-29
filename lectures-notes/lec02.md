@@ -73,7 +73,7 @@ Problems with direct execution?
 
 The Solution - **Limited Direct execution**.
 
-## Problem 1: Restricted OPS
+## Problem 1: Restricted Operations
 How can we ensure user process cant harm others?
 
 Solution: privlege levels supported by hardware (bit of status)
@@ -217,7 +217,7 @@ struct context {
 enum proc_state { UNUSED, EMBRYO, SLEEPING,
                 RUNNABLE, RUNNING, ZOMBIE };
 ```
-## How to prevent slow OPS such as I/O?
+## How to prevent slow Operations such as I/O?
 When running a process that performs operations that do not use CPU, OS switches to process that needs CPU (policy issues)
 
 The OS must track mode of each process:
