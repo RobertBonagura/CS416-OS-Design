@@ -180,7 +180,7 @@ What information is in stored in PCB?
 struct proc {
     char *mem;                  // Start of process memory
     uint sz;                    // Size of process memory
-    char *kstack;               // Bottom of kernel stack
+    char *kstack;               // Bottom of kernel stack for this process
     enum proc_state state;      // Process state
     int pid;                    // Process ID
     struct proc *parent;        // Parent process
@@ -199,6 +199,11 @@ Example: Process A has moved from user to kernel mode, and the OS decides it mus
 * Now, CPU is running B in kernel mode, return-from-trap to switch to user mode of B.
 
 ### What information must the Context save?
+
+Important registers:
+* esp - stack pointer register
+* ebx - base pointer register
+
 ```
 // the registers will save and restore
 // to stop and subsequently restart a process
@@ -250,3 +255,46 @@ Hardware proces a lot of OS support
 * user vs kernel mode
 * timer interrupts
 * automatic register saving
+
+----
+## Stack Detour
+`swap` function.<br>
+See the disasembled code of this operation.<br>
+It is broken into 3 phases:
+1. Setup phase- take the arg given by caller, move to stack, set return address,
+2.  execute the actual swap logic.
+3. Finish 
+
+### Setup phase
+Base pointer ponts to top of stack, stack pointer points to the lower address.
+Swap Setup #1
+```
+swap:
+    pushl %ebp
+    movl %esp, %ebp
+    pushl %ebx
+```
+Swap Setup #2
+```
+swap:
+    pushl %ebp
+    movl %esp, %ebp
+    pushl %ebx
+```
+Swap Setup #3
+```
+swap:
+    pushl %ebp
+    movl %esp, %ebp
+    pushl %ebx
+```
+
+Swap Body<br>
+Finish
+
+---
+
+latency for accessing memory: 100 - 150 clock cycles <br>
+load or store : 60 - 100 ns<br>
+Accessing 1 byte from hard disk: 2 - 5 ms<br>
+Accessing 1 byte from SSD: 50 - 100 micros<br>
