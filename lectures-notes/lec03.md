@@ -7,10 +7,20 @@ Important registers:
 
 ----
 ## Stack Detour
+### Current Stack Frame ("Top" to Bottom)
+* "Argument build" area (paramaters for function about to be called)
+* Local variables (if cant be kept in registers)
+* Saves register context (when reusing registers)
+* Old frame pointer (for caller) 
+
+### Caller's Stack Frame
+* Return address (pushed by `call` incstuction)
+* Arguments for this call
+
 `swap` function.<br>
-See the disasembled code of this operation.<br>
+See the disasembled code of this operation on slide.<br>
 It is broken into 3 phases:
-1. Setup phase- take the arg given by caller, move to stack, set return address,
+1. Setup phase - take the arg given by caller, move to stack, set return address,
 2.  execute the actual swap logic.
 3. Finish 
 
@@ -39,7 +49,9 @@ swap:
 ```
 
 Swap Body<br>
-Finish
+Finish #1<br>
+Finish #2<br>
+Finish #3<br>
 
 ---
 
