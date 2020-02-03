@@ -18,7 +18,7 @@
  */
 void segment_fault_handler(int signum) {
 
-    printf("I am slain!\n");
+    //printf("I am slain!\n");
 
 
     /* Implement Code Here */
