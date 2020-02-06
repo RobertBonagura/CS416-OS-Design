@@ -22,7 +22,16 @@ void segment_fault_handler(int signum) {
 
 
     /* Implement Code Here */
-
+	// Step 2
+	int BAD_INSTRUCTION_LENGTH = 5;
+	
+	// Step 3 - Address of main IP is 0x7fffffffd6e8
+	// Step 4 - Address of signum  is 0x7fffffffd61c
+	//		   	There diference is 0xcc or 204 bits
+	*(&signum + 204) = *(&signum + 204) + BAD_INSTRUCTION_LENGTH;
+	
+	// Yusup's solution		   	
+	//*(&signum + 47) = *(&signum + 47) + 2;
 
 }
 
