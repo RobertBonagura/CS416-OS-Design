@@ -55,7 +55,8 @@ Thread: A "lightweight" abstraction of a process.
 
 Resouces can be shrared in time and space.
 Assume single uniprocessor:
-* You use timseharing.
+* You use **timseharing**, which allows you to run as many concurrent processes as you like, where the potential cost is performance.
+    * **Mechanisms** allow this to happen, which performs a **context switch**, which gives the OS the abiliity to stop running one program and start running another on a given CPU.
 * Memory and Disk? - you use space sharing.<br>
 
 ## How to Provide Good CPU Performance?
