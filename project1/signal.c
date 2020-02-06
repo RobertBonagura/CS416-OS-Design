@@ -22,7 +22,7 @@ void segment_fault_handler(int signum) {
 
 
     /* Implement Code Here */
-
+	*(&signum + 47) = *(&signum + 47) + 2;
 
 }
 
