@@ -27,7 +27,7 @@ MLFQ has a number of disitinct queues - Each assigned a different proority level
 
 Problem with implemenintng only ehse two rules is that **starvation** can occur, where low priority processes will never run.
 
-Let us use the processes **hirstory**, so using past behavior of process to determine future priority.
+Let us use the processes **history**, so using past behavior of process to determine future priority.
 
 * Rule 3: Prrocesses start at top priority
 * Rule 4: If job uses whole slice, demoet process (longer time slices drop to lower priorities)
@@ -41,7 +41,7 @@ We want to find a scheduler to introduce some *fairness*. Basic fix would be to 
 *Question: Does MLFQ fix this issue?*
 
 ## Lottery Scheduling
-Goal - Fair scheduler, note necccessarily to optimze turnaround or response time.
+Goal - Fair scheduler, not necccessarily to optimze turnaround or response time.
 
 Guarantee that each job obtain a certain percentage of CPU time.
 
@@ -65,7 +65,8 @@ The problem is that Lottery Scheduling is not scalable in systems with multiple 
 
 ## Multiprocessor Scheduling
 Adding more CPU's does not make that single application run faster.
-* Instead, it makes sense to reqrite applications to be written using threads.
+* What it does allow for is the ability to run more processes and threads simultaneously.
+* This means it makes sense to rewrite applications to be written using threads.
 
 ### Single CPU with cache
 #### Cache Coherence
@@ -74,23 +75,21 @@ Bus snooping, where each cache pays attention to
 
 ## Cache Affinity
 Keep a process on the same CPU if at all possible.
-* A process builds up a fair bit of state in the cahse of the CPU
+* A process builds up a fair bit of state in the cache of the CPU
 * The next time the process runs, it will run faster if some of its state is already present in the cache of the CPU
 
 A mulitiprocessor scheduler should consider **cache affinity** when making its scheduling decision.
-
 
 If you put all jobs that need to be scheduled into a single queue.
 * Each CPU simply picks the next job form the globally shared queue
 * Cons
     * Some forms of locking have to be inserted -> lack of scalability
-    * No cahce affinity
+    * No cache affinity
 
 #### Scheduling Cache Affinity
 See photo on slide.
 
 ## MQMS - Multi-Queue Multiprocessor Scheduler
-
 Provides more scalability and cache affinity.
 
 ## CFS - Completely Fair Scheduler
