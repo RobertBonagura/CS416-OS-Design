@@ -8,7 +8,7 @@ int main (int argc, char* argv[]){
     // Question 4 
     int pid = fork();
     if (pid == 0){
-        exec("/bin/ls");
+        execl("/bin/ls","/bin/ls", NULL);
     } else if (pid > 0) {
         int fd = open("question2.txt", O_RDONLY);
         read(fd, NULL, 100);
