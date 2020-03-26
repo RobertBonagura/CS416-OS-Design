@@ -1,5 +1,11 @@
 #include "my_vm.h"
 
+void* p_mem;
+char* p_bitmap;
+char* v_bitmap;
+int p_numpages;
+int v_numpages;
+
 /*
 Function responsible for allocating and setting your physical memory 
 */
@@ -7,11 +13,35 @@ void set_physical_mem() {
 
     //Allocate physical memory using mmap or malloc; this is the total size of
     //your memory you are simulating
-
+    p_mem = malloc(MEMSIZE);
+    if (p_mem == NULL){
+        perror("Failed to set physical memory\n");
+        exit(1);
+    }
     
     //HINT: Also calculate the number of physical and virtual pages and allocate
     //virtual and physical bitmaps and initialize them
+    p_numpages = MEMSIZE / PGSIZE;
+    v_numpages = MAX_MEMSIZE / PGSIZE;
+    printf("I have %d physical pages and %d virtual pages\n", p_numpages, v_numpages);
 
+    int p_bits_needed = log2(p_numpages); 
+    int v_bits_needed = log2(v_numpages);
+    printf("I need %d and %d bits respectiely\n", p_bits_needed, v_bits_needed);
+
+    int p_bytes_needed = p_bits_needed / 8 + ((p_bits_needed % 8 > 0) ? 1 : 0);
+    int v_bytes_needed = v_bits_needed / 8 + ((v_bits_needed % 8 > 0) ? 1 : 0);
+    printf("Therefore, I need %d and %d bytes\n", p_bytes_needed, v_bytes_needed);
+
+    p_bitmap = malloc(sizeof(char) * p_bytes_needed);
+    v_bitmap = malloc(sizeof(char) * v_bytes_needed);
+    if (p_bitmap ==  NULL || v_bitmap == NULL){
+        perror("Failed to set bitmap\n");
+        exit(1);
+    }
+    memset(p_bitmap, 0, sizeof(char) * p_bytes_needed);
+    memset(v_bitmap, 0, sizeof(char) * v_bytes_needed);
+    return;
 }
 
 
@@ -65,6 +95,7 @@ print_TLB_missrate()
 The function takes a virtual address and page directories starting address and
 performs translation to return the physical address
 */
+//(David says you can treat this like void* pointer)
 pte_t *translate(pde_t *pgdir, void *va) {
     /* Part 1 HINT: Get the Page directory index (1st level) Then get the
     * 2nd-level-page table index using the virtual address.  Using the page
