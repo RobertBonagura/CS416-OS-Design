@@ -5,6 +5,7 @@ char* p_bitmap;
 char* v_bitmap;
 int p_numpages;
 int v_numpages;
+void* page_directory;
 
 /*
 Function responsible for allocating and setting your physical memory 
@@ -13,11 +14,12 @@ void set_physical_mem() {
 
     //Allocate physical memory using mmap or malloc; this is the total size of
     //your memory you are simulating
-    p_mem = malloc(MEMSIZE);
+    p_mem = malloc(sizeof(char) * MEMSIZE);
     if (p_mem == NULL){
         perror("Failed to set physical memory\n");
         exit(1);
     }
+    memset(p_mem, 0, sizeof(char) * MEMSIZE);
     
     //HINT: Also calculate the number of physical and virtual pages and allocate
     //virtual and physical bitmaps and initialize them
@@ -109,6 +111,11 @@ pte_t *translate(pde_t *pgdir, void *va) {
     * translation exists, then you can return physical address from the TLB.
     */
 
+   //Get the page directory index
+
+   //Get the page table index using the virtual address
+
+   //Get the physical address
 
     //If translation not successfull
     return NULL; 
@@ -149,6 +156,9 @@ void *a_malloc(unsigned int num_bytes) {
     /* 
      * HINT: If the physical memory is not yet initialized, then allocate and initialize.
      */
+    if (!p_mem){
+        set_physical_mem();
+    }
 
    /* 
     * HINT: If the page directory is not initialized, then initialize the
@@ -156,6 +166,9 @@ void *a_malloc(unsigned int num_bytes) {
     * free pages are available, set the bitmaps and map a new page. Note, you will 
     * have to mark which physical pages are used. 
     */
+   if (!page_directory){
+       init_pagedir();
+   }
 
     return NULL;
 }
@@ -223,5 +236,8 @@ void mat_mult(void *mat1, void *mat2, int size, void *answer) {
        
 }
 
-
+/* Helper Functions */
+void init_pagedir(){
+    return;
+}
 
