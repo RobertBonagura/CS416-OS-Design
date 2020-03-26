@@ -21,10 +21,13 @@ void set_physical_mem() {
     
     //HINT: Also calculate the number of physical and virtual pages and allocate
     //virtual and physical bitmaps and initialize them
+    
+    //Calculate number of physical and virtual pages
     p_numpages = MEMSIZE / PGSIZE;
     v_numpages = MAX_MEMSIZE / PGSIZE;
     printf("I have %d physical pages and %d virtual pages\n", p_numpages, v_numpages);
 
+    //Calculate number of bits, and then bytes needed for bit map
     int p_bits_needed = log2(p_numpages); 
     int v_bits_needed = log2(v_numpages);
     printf("I need %d and %d bits respectiely\n", p_bits_needed, v_bits_needed);
@@ -33,6 +36,7 @@ void set_physical_mem() {
     int v_bytes_needed = v_bits_needed / 8 + ((v_bits_needed % 8 > 0) ? 1 : 0);
     printf("Therefore, I need %d and %d bytes\n", p_bytes_needed, v_bytes_needed);
 
+    // Initialize bitmaps to all zero
     p_bitmap = malloc(sizeof(char) * p_bytes_needed);
     v_bitmap = malloc(sizeof(char) * v_bytes_needed);
     if (p_bitmap ==  NULL || v_bitmap == NULL){
